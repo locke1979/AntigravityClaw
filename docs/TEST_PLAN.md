@@ -2,7 +2,7 @@
 
 ## Test philosophy
 
-Most CI tests must not require live Antigravity credentials. Use a deterministic fake `agy` process to exercise protocol, timeout, failure, and redaction behavior. Reserve live `agy` tests for the OpenClaw VM deployment gates.
+Most CI tests must not require live Antigravity credentials. Use a deterministic fake `agy` process to exercise protocol, timeout, failure, and redaction behavior. Reserve live `agy` tests for the OpenClaw local host/LXC deployment gates.
 
 ## Test layers
 
@@ -68,9 +68,9 @@ Use temporary git repositories to verify:
 - symlink/path escape defense;
 - no operations outside registered root.
 
-### 5. Live Antigravity VM smoke tests
+### 5. Live Antigravity LXC smoke tests
 
-Run only on the target VM or an explicitly configured self-hosted runner:
+Run only on the target LXC or an explicitly configured self-hosted runner:
 
 - discover `agy`;
 - authenticated harmless `-p` JSON call;
@@ -125,3 +125,8 @@ Each gate issue must record:
 - unresolved deviations, if any.
 
 A swarm agent may not mark a gate complete based only on a prose claim that tests passed.
+
+
+## Environment gates
+
+Live agy validation is permitted only on the approved local host or, definitively, in proxmox-local-lxc. G0, G7, and G8 evidence must come from the LXC; remote VM/VM3 probes are out of scope. Tests must verify project/worktree confinement, verification-command allowlisting, authentication reuse without token copying/login, redaction, and rollback. Issue #4 remains blocked until G0 PASS.
