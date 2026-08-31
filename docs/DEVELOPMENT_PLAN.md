@@ -4,16 +4,16 @@
 
 Implement AntigravityClaw in gated waves. `/ia_orchestrating_swarms` may parallelize tasks inside a wave only when their dependencies do not overlap.
 
-The target environment is the approved OpenClaw local host or Proxmox local LXC, where Antigravity CLI is already installed and authenticated. Do not add re-authentication or replace the installed CLI as part of V1.
+The openclaw-local-host is the approved openclaw-local-host, where Antigravity CLI is already installed and authenticated. Do not add re-authentication or replace the installed CLI as part of V1.
 
 ## Wave 0 — Environment contract and protocol capture
 
 Deliverables:
 
-- verify `agy` executable/version on target LXC;
+- verify `agy` executable/version on openclaw-local-host;
 - harmless authenticated headless JSON smoke test;
 - verify `stream-json` session behavior;
-- verify `--sandbox` works in the target LXC;
+- verify `--sandbox` works in the openclaw-local-host;
 - capture representative success/error/permission-soft-deny event fixtures;
 - record actual CLI capabilities used by the gateway.
 
@@ -164,7 +164,7 @@ This extends existing issue #1 but should be implemented as AntigravityClaw func
 
 Pass only if fixtures cover local stdio, remote URL, disabled server, disabled tools, missing executable, malformed config, and secret-bearing configuration without leakage.
 
-## Wave 7 — target LXC deployment
+## Wave 7 — openclaw-local-host deployment
 
 Deliverables:
 
@@ -176,9 +176,9 @@ Deliverables:
 - rollback procedure;
 - OpenClaw MCP configuration snippet.
 
-### Gate G7 — target LXC smoke
+### Gate G7 — openclaw-local-host smoke
 
-Pass only if the deployed server on the OpenClaw local host/LXC can:
+Pass only if the deployed server on the openclaw-local-host can:
 
 - locate the already-installed authenticated `agy`;
 - complete `agy_health`;
@@ -210,4 +210,9 @@ V1 is releasable only when G0-G8 pass and all P0 blocking/high-priority issues a
 
 ## Environment decision (binding)
 
-Only openclaw-local-host and proxmox-local-lxc are allowed. The definitive environment for G0, G7, and G8 is proxmox-local-lxc; no remote path may be used. The LXC project/worktree and verification-command allowlists, plus the approved service-user authentication context, are prerequisites. Issue #4 is blocked until G0 PASS in that LXC.
+Only openclaw-local-host and openclaw-local-host are allowed. The definitive environment for G0, G7, and G8 is openclaw-local-host; no remote path may be used. The LXC project/worktree and verification-command allowlists, plus the approved service-user authentication context, are prerequisites. Issue #4 is blocked until G0 PASS in that LXC.
+
+
+## Definitive current-lane binding (2026-08-31)
+
+The current design is **openclaw-local-host-only**. OpenClaw launches AntigravityClaw as a **local MCP stdio** server; AntigravityClaw invokes the existing **`/home/claw/.local/bin/agy` 1.1.22** as a bounded child process using the approved project/worktree canonical path as the child-process `cwd`. There is no current-lane VM, CT, LXC, Proxmox, remote-execution, or network-MCP transport. G0, G7, and G8 are explicitly local-host-only. Historical references elsewhere in this document are retained as history or non-current diagnostic examples and do not authorize this lane.
