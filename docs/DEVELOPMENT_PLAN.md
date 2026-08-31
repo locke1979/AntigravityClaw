@@ -208,10 +208,6 @@ Pass only if:
 V1 is releasable only when G0-G8 pass and all P0 blocking/high-priority issues are closed. Downstream MCP diagnostics may ship as V1.1 if G0-G5 and G7-G8 are complete.
 
 
-## Environment decision (binding)
-
-Only openclaw-local-host and openclaw-local-host are allowed. The definitive environment for G0, G7, and G8 is openclaw-local-host; no remote path may be used. The LXC project/worktree and verification-command allowlists, plus the approved service-user authentication context, are prerequisites. Issue #4 is blocked until G0 PASS in that LXC.
-
 
 ## Definitive current-lane binding (2026-08-31)
 
