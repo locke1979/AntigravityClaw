@@ -18,7 +18,7 @@ Parallelize only independent issues. Use one integration owner for shared sessio
 Each implementation issue should produce a small PR with automated tests and exact verification evidence.
 Do not use TUI keystroke automation. Use Antigravity headless JSON/stream-json protocol.
 Do not introduce automatic git push/merge or dangerously-skip-permissions as a default.
-The target OpenClaw VM already has authenticated agy; deployment must verify and reuse it.
+The target OpenClaw local host/LXC already has authenticated agy; deployment must verify and reuse it.
 ```
 
 ## Wave allocation
@@ -27,7 +27,7 @@ The target OpenClaw VM already has authenticated agy; deployment must verify and
 
 Single owner plus reviewer:
 
-- target-VM protocol/capability capture;
+- target-LXC protocol/capability capture;
 - fixture specification based on observed behavior.
 
 This is deliberately not highly parallel because all later adapters depend on these observations.
@@ -89,7 +89,7 @@ Downstream MCP diagnostics can proceed largely independently after the core adap
 
 ### Wave 7-8
 
-Deployment owner plus test/gate owner. Real target-VM canary actions should be serialized to prevent agents from racing on the same deployment or worktree.
+Deployment owner plus test/gate owner. Real target-LXC canary actions should be serialized to prevent agents from racing on the same deployment or worktree.
 
 ## PR policy
 
@@ -136,9 +136,14 @@ If two active issues require the same core file, serialize them unless the integ
 The orchestrator must stop/raise a gate failure when:
 
 - real CLI behavior contradicts the assumed protocol;
-- target VM authentication is unavailable;
+- target LXC authentication is unavailable;
 - sandbox cannot start and no approved equivalent containment exists;
 - secrets appear in logs/responses;
 - path confinement can be bypassed;
 - child processes survive cancellation unexpectedly;
 - structured MCP response contracts become incompatible across tools.
+
+
+## Binding environment decision
+
+The only allowed execution environments are openclaw-local-host and proxmox-local-lxc. Use proxmox-local-lxc as the definitive target for G0, G7, and G8; remote VM/VM3 execution is prohibited. The orchestrator must require the LXC project/worktree allowlist, verification-command allowlist, and approved service-user authentication context before scheduling live work. Issue #4 is blocked until G0 PASS.
