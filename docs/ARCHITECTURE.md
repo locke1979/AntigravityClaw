@@ -179,3 +179,12 @@ Antigravity itself can consume MCP servers from global/workspace configuration. 
 3. Antigravity permission block;
 4. downstream MCP server failure;
 5. task/test failure.
+
+
+## Deployment boundary and trust contract
+
+V1 may run only as openclaw-local-host or proxmox-local-lxc. The definitive G0/G7/G8 environment is proxmox-local-lxc, with OpenClaw invoking the gateway locally over MCP stdio. There is no remote VM/VM3 execution path.
+
+The LXC service configuration must contain an explicit allowlist of canonical project roots or managed worktree roots, plus an allowlist of bounded verification commands per project. Requests outside either allowlist are rejected before process creation. agy authentication belongs to the service user/context already approved for the LXC; credentials are neither copied nor re-authenticated by deployment. The gateway must redact secrets and keep the Antigravity policy at least as restrictive as the LXC policy.
+
+G0 is definitive only when proven in the LXC. G7 and G8 run in that same LXC; issue #4 cannot start until G0 is PASS.
