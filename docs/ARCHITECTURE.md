@@ -183,8 +183,13 @@ Antigravity itself can consume MCP servers from global/workspace configuration. 
 
 ## Deployment boundary and trust contract
 
-V1 may run only as openclaw-local-host or proxmox-local-lxc. The definitive G0/G7/G8 environment is proxmox-local-lxc, with OpenClaw invoking the gateway locally over MCP stdio. There is no remote execution path.
+V1 may run only as openclaw-local-host or openclaw-local-host. The definitive G0/G7/G8 environment is openclaw-local-host, with OpenClaw invoking the gateway locally over MCP stdio. There is no remote execution path.
 
-The LXC service configuration must contain an explicit allowlist of canonical project roots or managed worktree roots, plus an allowlist of bounded verification commands per project. Requests outside either allowlist are rejected before process creation. agy authentication belongs to the service user/context already approved for the LXC; credentials are neither copied nor re-authenticated by deployment. The gateway must redact secrets and keep the Antigravity policy at least as restrictive as the LXC policy.
+The openclaw-local-host service configuration must contain an explicit allowlist of canonical project roots or managed worktree roots, plus an allowlist of bounded verification commands per project. Requests outside either allowlist are rejected before process creation. agy authentication belongs to the service user/context already approved for openclaw-local-host; credentials are neither copied nor re-authenticated by deployment. The gateway must redact secrets and keep the Antigravity policy at least as restrictive as openclaw-local-host policy.
 
-G0 is definitive only when proven in the LXC. G7 and G8 run in that same LXC; issue #4 cannot start until G0 is PASS.
+G0 is definitive only when proven in openclaw-local-host. G7 and G8 run in that same LXC; issue #4 cannot start until G0 is PASS.
+
+
+## Definitive current-lane binding (2026-08-31)
+
+The current design is **openclaw-local-host-only**. OpenClaw launches AntigravityClaw as a **local MCP stdio** server; AntigravityClaw invokes the existing **`/home/claw/.local/bin/agy` 1.1.22** as a bounded child process using the approved project/worktree canonical path as the child-process `cwd`. There is no current-lane VM, CT, LXC, Proxmox, remote-execution, or network-MCP transport. G0, G7, and G8 are explicitly local-host-only. Historical references elsewhere in this document are retained as history or non-current diagnostic examples and do not authorize this lane.
