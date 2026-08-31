@@ -92,4 +92,4 @@ The repository is planned as a Node.js MCP server with an adapter around the `ag
 
 ## V1 environment decision
 
-The only permitted runtime environments are openclaw-local-host and proxmox-local-lxc. The definitive V1 deployment and G0 validation target is proxmox-local-lxc; no remote VM or VM3 deployment is part of this architecture. The LXC must use an explicit project/worktree allowlist, bounded verification-command allowlists, and its own validated service-user authentication context. Do not copy tokens or perform automatic login. G7 and G8 are LXC gates. Issue #4 remains blocked until G0 is PASS.
+The only permitted runtime environments are openclaw-local-host and proxmox-local-lxc. The definitive V1 deployment and G0 validation target is proxmox-local-lxc; remote execution is not part of this architecture. The LXC must use an explicit project/worktree allowlist, bounded verification-command allowlists, and its own validated service-user authentication context. Do not copy tokens or perform automatic login. G7 and G8 are LXC gates. Issue #4 remains blocked until G0 is PASS.
