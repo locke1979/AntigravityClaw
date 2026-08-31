@@ -65,3 +65,12 @@ A feature is done only when:
 - relevant documentation is updated;
 - CI is green;
 - the issue's gate criteria are demonstrably met.
+
+
+## V1 environment contract
+
+- Permitted environments are only openclaw-local-host and proxmox-local-lxc.
+- The definitive G0, G7, and G8 target is proxmox-local-lxc; remote VM/VM3 execution is prohibited.
+- The gateway must enforce an explicit project/worktree path allowlist and per-project verification-command allowlist.
+- Authentication is owned by the approved service context; never copy tokens or trigger automatic login.
+- Issue #4 is blocked until G0 PASS is evidenced in the definitive LXC target.
