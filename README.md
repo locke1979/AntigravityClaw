@@ -1,6 +1,6 @@
 # AntigravityClaw
 
-AntigravityClaw is an MCP execution gateway that lets OpenClaw delegate bounded software-engineering work to the Google Antigravity CLI already installed and authenticated on the OpenClaw VM.
+AntigravityClaw is an MCP execution gateway that lets OpenClaw delegate bounded software-engineering work to the Google Antigravity CLI already installed and authenticated on the OpenClaw local host/LXC.
 
 The server does **not** automate the Antigravity TUI. It uses Antigravity CLI's documented headless protocol (`--output-format json|stream-json`, `--input-format stream-json`, `--conversation`, `--json-schema`, `--sandbox`) and exposes stable, higher-level MCP tools to OpenClaw.
 
@@ -85,6 +85,11 @@ Official Antigravity documentation used by this project:
 
 ## Development target
 
-The implementation is intended for the existing OpenClaw VM where `agy` is already installed and authenticated. Bootstrap work should verify that environment, not replace or re-authenticate it.
+The implementation is intended for the approved OpenClaw local host or Proxmox local LXC where `agy` is already installed and authenticated. Bootstrap work should verify that environment, not replace or re-authenticate it.
 
 The repository is planned as a Node.js MCP server with an adapter around the `agy` child process and a testable fake-CLI fixture for CI.
+
+
+## V1 environment decision
+
+The only permitted runtime environments are openclaw-local-host and proxmox-local-lxc. The definitive V1 deployment and G0 validation target is proxmox-local-lxc; no remote VM or VM3 deployment is part of this architecture. The LXC must use an explicit project/worktree allowlist, bounded verification-command allowlists, and its own validated service-user authentication context. Do not copy tokens or perform automatic login. G7 and G8 are LXC gates. Issue #4 remains blocked until G0 is PASS.
