@@ -144,10 +144,6 @@ The orchestrator must stop/raise a gate failure when:
 - structured MCP response contracts become incompatible across tools.
 
 
-## Binding environment decision
-
-The only allowed execution environments are openclaw-local-host and openclaw-local-host. Use openclaw-local-host as the definitive target for G0, G7, and G8; remote execution is prohibited. The orchestrator must require openclaw-local-host project/worktree allowlist, verification-command allowlist, and approved service-user authentication context before scheduling live work. Issue #4 is blocked until G0 PASS.
-
 
 ## Definitive current-lane binding (2026-08-31)
 
