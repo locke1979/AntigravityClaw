@@ -90,10 +90,6 @@ The implementation is intended for the approved openclaw-local-host where `agy` 
 The repository is planned as a Node.js MCP server with an adapter around the `agy` child process and a testable fake-CLI fixture for CI.
 
 
-## V1 environment decision
-
-The only permitted runtime environments are openclaw-local-host and openclaw-local-host. The definitive V1 deployment and G0 validation target is openclaw-local-host; remote execution is not part of this architecture. The LXC must use an explicit project/worktree allowlist, bounded verification-command allowlists, and its own validated service-user authentication context. Do not copy tokens or perform automatic login. G7 and G8 are LXC gates. Issue #4 remains blocked until G0 is PASS.
-
 
 ## Definitive current-lane binding (2026-08-31)
 
