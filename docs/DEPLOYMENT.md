@@ -117,7 +117,7 @@ Rollback must not modify the Antigravity installation/auth state.
 
 ## V1 environment decision
 
-The permitted environments are openclaw-local-host and proxmox-local-lxc. The definitive target is proxmox-local-lxc; V1 has no remote VM/VM3 topology or operational dependency.
+The permitted environments are openclaw-local-host and proxmox-local-lxc. The definitive target is proxmox-local-lxc; V1 has no remote topology or operational dependency.
 
 ### LXC allowlist and authentication
 
