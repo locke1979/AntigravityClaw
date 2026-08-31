@@ -2,7 +2,7 @@
 
 ## Test philosophy
 
-Most CI tests must not require live Antigravity credentials. Use a deterministic fake `agy` process to exercise protocol, timeout, failure, and redaction behavior. Reserve live `agy` tests for the OpenClaw local host/LXC deployment gates.
+Most CI tests must not require live Antigravity credentials. Use a deterministic fake `agy` process to exercise protocol, timeout, failure, and redaction behavior. Reserve live `agy` tests for the openclaw-local-host deployment gates.
 
 ## Test layers
 
@@ -70,7 +70,7 @@ Use temporary git repositories to verify:
 
 ### 5. Live Antigravity LXC smoke tests
 
-Run only on the target LXC or an explicitly configured self-hosted runner:
+Run only on the openclaw-local-host or an explicitly configured self-hosted runner:
 
 - discover `agy`;
 - authenticated harmless `-p` JSON call;
@@ -129,4 +129,9 @@ A swarm agent may not mark a gate complete based only on a prose claim that test
 
 ## Environment gates
 
-Live agy validation is permitted only on the approved local host or, definitively, in proxmox-local-lxc. G0, G7, and G8 evidence must come from the LXC; remote probes are out of scope. Tests must verify project/worktree confinement, verification-command allowlisting, authentication reuse without token copying/login, redaction, and rollback. Issue #4 remains blocked until G0 PASS.
+Live agy validation is permitted only on the approved local host or, definitively, in openclaw-local-host. G0, G7, and G8 evidence must come from openclaw-local-host; remote probes are out of scope. Tests must verify project/worktree confinement, verification-command allowlisting, authentication reuse without token copying/login, redaction, and rollback. Issue #4 remains blocked until G0 PASS.
+
+
+## Definitive current-lane binding (2026-08-31)
+
+The current design is **openclaw-local-host-only**. OpenClaw launches AntigravityClaw as a **local MCP stdio** server; AntigravityClaw invokes the existing **`/home/claw/.local/bin/agy` 1.1.22** as a bounded child process using the approved project/worktree canonical path as the child-process `cwd`. There is no current-lane VM, CT, LXC, Proxmox, remote-execution, or network-MCP transport. G0, G7, and G8 are explicitly local-host-only. Historical references elsewhere in this document are retained as history or non-current diagnostic examples and do not authorize this lane.
