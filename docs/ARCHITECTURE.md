@@ -181,14 +181,6 @@ Antigravity itself can consume MCP servers from global/workspace configuration. 
 5. task/test failure.
 
 
-## Deployment boundary and trust contract
-
-V1 may run only as openclaw-local-host or openclaw-local-host. The definitive G0/G7/G8 environment is openclaw-local-host, with OpenClaw invoking the gateway locally over MCP stdio. There is no remote execution path.
-
-The openclaw-local-host service configuration must contain an explicit allowlist of canonical project roots or managed worktree roots, plus an allowlist of bounded verification commands per project. Requests outside either allowlist are rejected before process creation. agy authentication belongs to the service user/context already approved for openclaw-local-host; credentials are neither copied nor re-authenticated by deployment. The gateway must redact secrets and keep the Antigravity policy at least as restrictive as openclaw-local-host policy.
-
-G0 is definitive only when proven in openclaw-local-host. G7 and G8 run in that same LXC; issue #4 cannot start until G0 is PASS.
-
 
 ## Definitive current-lane binding (2026-08-31)
 
