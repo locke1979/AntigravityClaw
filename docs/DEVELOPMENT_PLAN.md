@@ -210,4 +210,4 @@ V1 is releasable only when G0-G8 pass and all P0 blocking/high-priority issues a
 
 ## Environment decision (binding)
 
-Only openclaw-local-host and proxmox-local-lxc are allowed. The definitive environment for G0, G7, and G8 is proxmox-local-lxc; no remote VM/VM3 path may be used. The LXC project/worktree and verification-command allowlists, plus the approved service-user authentication context, are prerequisites. Issue #4 is blocked until G0 PASS in that LXC.
+Only openclaw-local-host and proxmox-local-lxc are allowed. The definitive environment for G0, G7, and G8 is proxmox-local-lxc; no remote path may be used. The LXC project/worktree and verification-command allowlists, plus the approved service-user authentication context, are prerequisites. Issue #4 is blocked until G0 PASS in that LXC.
