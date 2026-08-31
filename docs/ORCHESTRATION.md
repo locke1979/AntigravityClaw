@@ -146,4 +146,4 @@ The orchestrator must stop/raise a gate failure when:
 
 ## Binding environment decision
 
-The only allowed execution environments are openclaw-local-host and proxmox-local-lxc. Use proxmox-local-lxc as the definitive target for G0, G7, and G8; remote VM/VM3 execution is prohibited. The orchestrator must require the LXC project/worktree allowlist, verification-command allowlist, and approved service-user authentication context before scheduling live work. Issue #4 is blocked until G0 PASS.
+The only allowed execution environments are openclaw-local-host and proxmox-local-lxc. Use proxmox-local-lxc as the definitive target for G0, G7, and G8; remote execution is prohibited. The orchestrator must require the LXC project/worktree allowlist, verification-command allowlist, and approved service-user authentication context before scheduling live work. Issue #4 is blocked until G0 PASS.
