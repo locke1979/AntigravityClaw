@@ -2,7 +2,7 @@
 
 ## Target
 
-Deploy AntigravityClaw on the approved OpenClaw local host or Proxmox local LXC. Antigravity CLI is already installed and authenticated there; deployment must preserve that working installation and cached authentication.
+Deploy AntigravityClaw on the approved openclaw-local-host. Antigravity CLI is already installed and authenticated there; deployment must preserve that working installation and cached authentication.
 
 ## Recommended V1 topology
 
@@ -14,9 +14,9 @@ OpenClaw
        -> agy headless child process
 ```
 
-This avoids exposing a network listener and keeps the initial trust boundary local to the target LXC.
+This avoids exposing a network listener and keeps the initial trust boundary local to the openclaw-local-host.
 
-A Streamable HTTP transport can be added later only if remote access is required.
+Network MCP transports are out of scope for the current lane; V1 uses local MCP stdio only.
 
 ## Filesystem layout
 
@@ -53,7 +53,7 @@ Do not store API tokens or Antigravity authentication secrets in the repository.
 
 ### D0 — Preflight
 
-On the target user account:
+On the openclaw-local-host user account:
 
 - `command -v agy`;
 - capture `agy` version;
@@ -117,11 +117,11 @@ Rollback must not modify the Antigravity installation/auth state.
 
 ## V1 environment decision
 
-The permitted environments are openclaw-local-host and proxmox-local-lxc. The definitive target is proxmox-local-lxc; V1 has no remote topology or operational dependency.
+The permitted environments are openclaw-local-host and openclaw-local-host. The definitive target is openclaw-local-host; V1 has no remote topology or operational dependency.
 
 ### LXC allowlist and authentication
 
-- Run the gateway and agy under one explicitly approved LXC service user/context.
+- Run the gateway and agy under one explicitly approved openclaw-local-host service user/context.
 - Allow only canonical registered project roots or managed worktrees; reject traversal, symlink escape, and unregistered paths.
 - Allow only per-project verification commands declared in configuration; reject arbitrary shell commands and arbitrary environment variables.
 - Resolve agy from the approved service context and validate its existing authentication without copying credentials or performing automatic login.
@@ -129,4 +129,9 @@ The permitted environments are openclaw-local-host and proxmox-local-lxc. The de
 
 ### Definitive gates
 
-G0 must be executed and evidenced in the LXC. G7 deployment smoke and G8 canary must also run in the LXC. Issue #4 remains blocked until G0 PASS.
+G0 must be executed and evidenced in openclaw-local-host. G7 deployment smoke and G8 canary must also run in openclaw-local-host. Issue #4 remains blocked until G0 PASS.
+
+
+## Definitive current-lane binding (2026-08-31)
+
+The current design is **openclaw-local-host-only**. OpenClaw launches AntigravityClaw as a **local MCP stdio** server; AntigravityClaw invokes the existing **`/home/claw/.local/bin/agy` 1.1.22** as a bounded child process using the approved project/worktree canonical path as the child-process `cwd`. There is no current-lane VM, CT, LXC, Proxmox, remote-execution, or network-MCP transport. G0, G7, and G8 are explicitly local-host-only. Historical references elsewhere in this document are retained as history or non-current diagnostic examples and do not authorize this lane.
