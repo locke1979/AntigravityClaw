@@ -2,7 +2,7 @@
 
 ## Target
 
-Deploy AntigravityClaw on the existing OpenClaw VM. Antigravity CLI is already installed and authenticated there; deployment must preserve that working installation and cached authentication.
+Deploy AntigravityClaw on the approved OpenClaw local host or Proxmox local LXC. Antigravity CLI is already installed and authenticated there; deployment must preserve that working installation and cached authentication.
 
 ## Recommended V1 topology
 
@@ -14,7 +14,7 @@ OpenClaw
        -> agy headless child process
 ```
 
-This avoids exposing a network listener and keeps the initial trust boundary local to the VM.
+This avoids exposing a network listener and keeps the initial trust boundary local to the target LXC.
 
 A Streamable HTTP transport can be added later only if remote access is required.
 
@@ -113,3 +113,20 @@ Rollback must not modify the Antigravity installation/auth state.
 - cap concurrent `agy` processes;
 - cap log size and response excerpts;
 - bound every child process with a timeout/cancellation policy.
+
+
+## V1 environment decision
+
+The permitted environments are openclaw-local-host and proxmox-local-lxc. The definitive target is proxmox-local-lxc; V1 has no remote VM/VM3 topology or operational dependency.
+
+### LXC allowlist and authentication
+
+- Run the gateway and agy under one explicitly approved LXC service user/context.
+- Allow only canonical registered project roots or managed worktrees; reject traversal, symlink escape, and unregistered paths.
+- Allow only per-project verification commands declared in configuration; reject arbitrary shell commands and arbitrary environment variables.
+- Resolve agy from the approved service context and validate its existing authentication without copying credentials or performing automatic login.
+- Keep MCP local (stdio) unless a separately approved local-host boundary requires otherwise; do not expose a V1 network listener.
+
+### Definitive gates
+
+G0 must be executed and evidenced in the LXC. G7 deployment smoke and G8 canary must also run in the LXC. Issue #4 remains blocked until G0 PASS.
