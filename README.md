@@ -1,6 +1,6 @@
 # AntigravityClaw
 
-AntigravityClaw is an MCP execution gateway that lets OpenClaw delegate bounded software-engineering work to the Google Antigravity CLI already installed and authenticated on the OpenClaw local host/LXC.
+AntigravityClaw is an MCP execution gateway that lets OpenClaw delegate bounded software-engineering work to the Google Antigravity CLI already installed and authenticated on the openclaw-local-host.
 
 The server does **not** automate the Antigravity TUI. It uses Antigravity CLI's documented headless protocol (`--output-format json|stream-json`, `--input-format stream-json`, `--conversation`, `--json-schema`, `--sandbox`) and exposes stable, higher-level MCP tools to OpenClaw.
 
@@ -85,11 +85,16 @@ Official Antigravity documentation used by this project:
 
 ## Development target
 
-The implementation is intended for the approved OpenClaw local host or Proxmox local LXC where `agy` is already installed and authenticated. Bootstrap work should verify that environment, not replace or re-authenticate it.
+The implementation is intended for the approved openclaw-local-host where `agy` is already installed and authenticated. Bootstrap work should verify that environment, not replace or re-authenticate it.
 
 The repository is planned as a Node.js MCP server with an adapter around the `agy` child process and a testable fake-CLI fixture for CI.
 
 
 ## V1 environment decision
 
-The only permitted runtime environments are openclaw-local-host and proxmox-local-lxc. The definitive V1 deployment and G0 validation target is proxmox-local-lxc; remote execution is not part of this architecture. The LXC must use an explicit project/worktree allowlist, bounded verification-command allowlists, and its own validated service-user authentication context. Do not copy tokens or perform automatic login. G7 and G8 are LXC gates. Issue #4 remains blocked until G0 is PASS.
+The only permitted runtime environments are openclaw-local-host and openclaw-local-host. The definitive V1 deployment and G0 validation target is openclaw-local-host; remote execution is not part of this architecture. The LXC must use an explicit project/worktree allowlist, bounded verification-command allowlists, and its own validated service-user authentication context. Do not copy tokens or perform automatic login. G7 and G8 are LXC gates. Issue #4 remains blocked until G0 is PASS.
+
+
+## Definitive current-lane binding (2026-08-31)
+
+The current design is **openclaw-local-host-only**. OpenClaw launches AntigravityClaw as a **local MCP stdio** server; AntigravityClaw invokes the existing **`/home/claw/.local/bin/agy` 1.1.22** as a bounded child process using the approved project/worktree canonical path as the child-process `cwd`. There is no current-lane VM, CT, LXC, Proxmox, remote-execution, or network-MCP transport. G0, G7, and G8 are explicitly local-host-only. Historical references elsewhere in this document are retained as history or non-current diagnostic examples and do not authorize this lane.
