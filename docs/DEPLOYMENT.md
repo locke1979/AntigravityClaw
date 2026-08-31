@@ -115,22 +115,6 @@ Rollback must not modify the Antigravity installation/auth state.
 - bound every child process with a timeout/cancellation policy.
 
 
-## V1 environment decision
-
-The permitted environments are openclaw-local-host and openclaw-local-host. The definitive target is openclaw-local-host; V1 has no remote topology or operational dependency.
-
-### LXC allowlist and authentication
-
-- Run the gateway and agy under one explicitly approved openclaw-local-host service user/context.
-- Allow only canonical registered project roots or managed worktrees; reject traversal, symlink escape, and unregistered paths.
-- Allow only per-project verification commands declared in configuration; reject arbitrary shell commands and arbitrary environment variables.
-- Resolve agy from the approved service context and validate its existing authentication without copying credentials or performing automatic login.
-- Keep MCP local (stdio) unless a separately approved local-host boundary requires otherwise; do not expose a V1 network listener.
-
-### Definitive gates
-
-G0 must be executed and evidenced in openclaw-local-host. G7 deployment smoke and G8 canary must also run in openclaw-local-host. Issue #4 remains blocked until G0 PASS.
-
 
 ## Definitive current-lane binding (2026-08-31)
 
