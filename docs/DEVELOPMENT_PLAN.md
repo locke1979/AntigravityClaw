@@ -4,16 +4,16 @@
 
 Implement AntigravityClaw in gated waves. `/ia_orchestrating_swarms` may parallelize tasks inside a wave only when their dependencies do not overlap.
 
-The target environment is the existing OpenClaw VM, where Antigravity CLI is already installed and authenticated. Do not add re-authentication or replace the installed CLI as part of V1.
+The target environment is the approved OpenClaw local host or Proxmox local LXC, where Antigravity CLI is already installed and authenticated. Do not add re-authentication or replace the installed CLI as part of V1.
 
 ## Wave 0 — Environment contract and protocol capture
 
 Deliverables:
 
-- verify `agy` executable/version on target VM;
+- verify `agy` executable/version on target LXC;
 - harmless authenticated headless JSON smoke test;
 - verify `stream-json` session behavior;
-- verify `--sandbox` works on the VM;
+- verify `--sandbox` works in the target LXC;
 - capture representative success/error/permission-soft-deny event fixtures;
 - record actual CLI capabilities used by the gateway.
 
@@ -164,7 +164,7 @@ This extends existing issue #1 but should be implemented as AntigravityClaw func
 
 Pass only if fixtures cover local stdio, remote URL, disabled server, disabled tools, missing executable, malformed config, and secret-bearing configuration without leakage.
 
-## Wave 7 — Target VM deployment
+## Wave 7 — target LXC deployment
 
 Deliverables:
 
@@ -176,9 +176,9 @@ Deliverables:
 - rollback procedure;
 - OpenClaw MCP configuration snippet.
 
-### Gate G7 — target VM smoke
+### Gate G7 — target LXC smoke
 
-Pass only if the deployed server on the OpenClaw VM can:
+Pass only if the deployed server on the OpenClaw local host/LXC can:
 
 - locate the already-installed authenticated `agy`;
 - complete `agy_health`;
@@ -206,3 +206,8 @@ Pass only if:
 ## Release criterion
 
 V1 is releasable only when G0-G8 pass and all P0 blocking/high-priority issues are closed. Downstream MCP diagnostics may ship as V1.1 if G0-G5 and G7-G8 are complete.
+
+
+## Environment decision (binding)
+
+Only openclaw-local-host and proxmox-local-lxc are allowed. The definitive environment for G0, G7, and G8 is proxmox-local-lxc; no remote VM/VM3 path may be used. The LXC project/worktree and verification-command allowlists, plus the approved service-user authentication context, are prerequisites. Issue #4 is blocked until G0 PASS in that LXC.
